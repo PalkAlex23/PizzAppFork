@@ -3,7 +3,7 @@ package pizzapp;
 public class PizzApp extends javax.swing.JFrame {
     
     int alapAr = -1; // nincs ára a piizának (-1-el szokás megadni)
-    int extra1, extra2, extra3, extrak, db;
+    int sajt, hagyma, ananasz, extrak, db;
     double meretSzorzo = 1; // 32 cm
     double vegsoAr;
     
@@ -14,10 +14,10 @@ public class PizzApp extends javax.swing.JFrame {
         
         db = (int) numDb.getValue();
         
-        extra1 = 0;
-        extra2 = 0;
-        extra3 = 0;
-        extrak = extra1 + extra2 + extra3;
+        sajt = 0;
+        hagyma = 0;
+        ananasz = 0;
+        extrak = sajt + hagyma + ananasz;
         
         szamolasEsKiiras();
     }
@@ -284,10 +284,10 @@ public class PizzApp extends javax.swing.JFrame {
         
         db = (int) numDb.getValue();
         
-        extra1 = 0;
-        extra2 = 0;
-        extra3 = 0;
-        extrak = extra1 + extra2 + extra3;
+        sajt = 0;
+        hagyma = 0;
+        ananasz = 0;
+        extrak = sajt + hagyma + ananasz;
         
         szamolasEsKiiras();
     }//GEN-LAST:event_cmdValaszthatoPizzakActionPerformed
@@ -306,9 +306,11 @@ public class PizzApp extends javax.swing.JFrame {
 
     private void chbSajtItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbSajtItemStateChanged
         if(chbSajt.isSelected()){
-            extra1 = 200;
+            sajt = 200;
+            extrak = sajt + hagyma + ananasz;
         } else {
-            extra1 = 0;
+            sajt = 0;
+            extrak = sajt + hagyma + ananasz;
         }
         
         szamolasEsKiiras();
@@ -316,9 +318,11 @@ public class PizzApp extends javax.swing.JFrame {
 
     private void chbHagymaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbHagymaItemStateChanged
         if(chbHagyma.isSelected()){
-            extra2 = 300;
+            hagyma = 300;
+            extrak = sajt + hagyma + ananasz;
         } else {
-            extra2 = 0;
+            hagyma = 0;
+            extrak = sajt + hagyma + ananasz;
         }
         
         szamolasEsKiiras();
@@ -326,9 +330,11 @@ public class PizzApp extends javax.swing.JFrame {
 
     private void chbAnanaszItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbAnanaszItemStateChanged
         if(chbAnanasz.isSelected()){
-            extra3 = 400;
+            ananasz = 400;
+            extrak = sajt + hagyma + ananasz;
         } else {
-            extra3 = 0;
+            ananasz = 0;
+            extrak = sajt + hagyma + ananasz;
         }
         
         szamolasEsKiiras();
