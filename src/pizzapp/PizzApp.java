@@ -1,22 +1,24 @@
 package pizzapp;
 
 public class PizzApp extends javax.swing.JFrame {
-
+    
+    int alapAr = -1; // nincs ára a piizának (-1-el szokás megadni)
+    int extrak, db;
+    double meretSzorzo = 1; // 32 cm
+    
     public PizzApp() {
         initComponents();
         
-        int alapAr2 = 1750;
+        alapAr = 1750;
         
-        double meretSzorzo = 1;
-        
-        int db = 1;
+        db = 1;
         
         int extra1 = 0;
         int extra2 = 0;
         int extra3 = 0;
-        int extrak = extra1 + extra2 + extra3;
+        extrak = extra1 + extra2 + extra3;
         
-        double vegsoAr = alapAr2 * meretSzorzo + extrak;
+        double vegsoAr = alapAr * meretSzorzo + extrak;
         vegsoAr *= db;
         lblAr.setText(vegsoAr + "");
     }
@@ -66,10 +68,20 @@ public class PizzApp extends javax.swing.JFrame {
 
         btgMeret.add(rdbMeret25);
         rdbMeret25.setText("25 cm");
+        rdbMeret25.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rdbMeret25ItemStateChanged(evt);
+            }
+        });
 
         btgMeret.add(rdbMeret32);
         rdbMeret32.setSelected(true);
         rdbMeret32.setText("32 cm");
+        rdbMeret32.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rdbMeret32ItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlMeretLayout = new javax.swing.GroupLayout(pnlMeret);
         pnlMeret.setLayout(pnlMeretLayout);
@@ -239,7 +251,7 @@ public class PizzApp extends javax.swing.JFrame {
         int pizzaIndex = cmdValaszthatoPizzak.getSelectedIndex();
         
         // választott pizza alapára
-        int alapAr = -1; // nincs ára a piizának (-1-el szokás megadni)
+        int alapAr = -1; 
         
         if(pizzaIndex == 0){
             alapAr = 1580;
@@ -251,19 +263,29 @@ public class PizzApp extends javax.swing.JFrame {
             alapAr = 2100;
         }
         
-        double meretSzorzo = 1;
-        
-        int db = 1;
+        db = 1;
         
         int extra1 = 0;
         int extra2 = 0;
         int extra3 = 0;
-        int extrak = extra1 + extra2 + extra3;
+        extrak = extra1 + extra2 + extra3;
         
         double vegsoAr = alapAr * meretSzorzo + extrak;
         vegsoAr *= db;
         lblAr.setText(vegsoAr + "");
     }//GEN-LAST:event_cmdValaszthatoPizzakActionPerformed
+
+    private void rdbMeret25ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbMeret25ItemStateChanged
+        meretSzorzo = .75;
+        
+        double vegsoAr = alapAr * meretSzorzo + extrak;
+        vegsoAr *= db;
+        lblAr.setText(vegsoAr + "");
+    }//GEN-LAST:event_rdbMeret25ItemStateChanged
+
+    private void rdbMeret32ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbMeret32ItemStateChanged
+        meretSzorzo = 1;
+    }//GEN-LAST:event_rdbMeret32ItemStateChanged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
