@@ -3,7 +3,7 @@ package pizzapp;
 public class PizzApp extends javax.swing.JFrame {
     
     int alapAr = -1; // nincs ára a piizának (-1-el szokás megadni)
-    int extrak, db;
+    int extra1, extra2, extra3, extrak, db;
     double meretSzorzo = 1; // 32 cm
     double vegsoAr;
     
@@ -12,11 +12,11 @@ public class PizzApp extends javax.swing.JFrame {
         
         alapAr = 1750;
         
-        db = 1;
+        db = (int) numDb.getValue();
         
-        int extra1 = 0;
-        int extra2 = 0;
-        int extra3 = 0;
+        extra1 = 0;
+        extra2 = 0;
+        extra3 = 0;
         extrak = extra1 + extra2 + extra3;
         
         szamolasEsKiiras();
@@ -113,6 +113,11 @@ public class PizzApp extends javax.swing.JFrame {
         lblAr.setText("0");
 
         numDb.setModel(new javax.swing.SpinnerNumberModel(1, 1, 5, 1));
+        numDb.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                numDbStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFizetendoLayout = new javax.swing.GroupLayout(pnlFizetendo);
         pnlFizetendo.setLayout(pnlFizetendoLayout);
@@ -147,10 +152,25 @@ public class PizzApp extends javax.swing.JFrame {
         pnlExtrak.setBorder(javax.swing.BorderFactory.createTitledBorder("Extrák"));
 
         chbSajt.setText("sajt");
+        chbSajt.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chbSajtItemStateChanged(evt);
+            }
+        });
 
         chbHagyma.setText("hagyma");
+        chbHagyma.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chbHagymaItemStateChanged(evt);
+            }
+        });
 
         chbAnanasz.setText("ananász");
+        chbAnanasz.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chbAnanaszItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlExtrakLayout = new javax.swing.GroupLayout(pnlExtrak);
         pnlExtrak.setLayout(pnlExtrakLayout);
@@ -262,11 +282,11 @@ public class PizzApp extends javax.swing.JFrame {
             alapAr = 2100;
         }
         
-        db = 1;
+        db = (int) numDb.getValue();
         
-        int extra1 = 0;
-        int extra2 = 0;
-        int extra3 = 0;
+        extra1 = 0;
+        extra2 = 0;
+        extra3 = 0;
         extrak = extra1 + extra2 + extra3;
         
         szamolasEsKiiras();
@@ -283,6 +303,41 @@ public class PizzApp extends javax.swing.JFrame {
         
         szamolasEsKiiras();
     }//GEN-LAST:event_rdbMeret32ItemStateChanged
+
+    private void chbSajtItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbSajtItemStateChanged
+        if(chbSajt.isSelected()){
+            extra1 = 200;
+        } else {
+            extra1 = 0;
+        }
+        
+        szamolasEsKiiras();
+    }//GEN-LAST:event_chbSajtItemStateChanged
+
+    private void chbHagymaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbHagymaItemStateChanged
+        if(chbHagyma.isSelected()){
+            extra2 = 300;
+        } else {
+            extra2 = 0;
+        }
+        
+        szamolasEsKiiras();
+    }//GEN-LAST:event_chbHagymaItemStateChanged
+
+    private void chbAnanaszItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chbAnanaszItemStateChanged
+        if(chbAnanasz.isSelected()){
+            extra3 = 400;
+        } else {
+            extra3 = 0;
+        }
+        
+        szamolasEsKiiras();
+    }//GEN-LAST:event_chbAnanaszItemStateChanged
+
+    private void numDbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_numDbStateChanged
+        db = (int) numDb.getValue();
+        szamolasEsKiiras();
+    }//GEN-LAST:event_numDbStateChanged
 
     private void szamolasEsKiiras() {
         vegsoAr = alapAr * meretSzorzo + extrak;
