@@ -1,5 +1,8 @@
 package pizzapp;
 
+import java.awt.Desktop;
+import javax.swing.JOptionPane;
+
 public class PizzApp extends javax.swing.JFrame {
     
     int alapAr = -1; // nincs ára a piizának (-1-el szokás megadni)
@@ -9,6 +12,8 @@ public class PizzApp extends javax.swing.JFrame {
     
     public PizzApp() {
         initComponents();
+        
+        txaOsszesito.setEnabled(false);
         
         alapAr = 1750;
         
@@ -200,6 +205,11 @@ public class PizzApp extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txaOsszesito);
 
         btnRendel.setText("Megrendelem");
+        btnRendel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRendelActionPerformed(evt);
+            }
+        });
 
         lblOsszesito.setText("Összestő:");
 
@@ -345,6 +355,40 @@ public class PizzApp extends javax.swing.JFrame {
         szamolasEsKiiras();
     }//GEN-LAST:event_numDbStateChanged
 
+    private void btnRendelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendelActionPerformed
+        String pizzaFajta = (String) cmdValaszthatoPizzak.getSelectedItem();
+        int pizzaMenny = (int) numDb.getValue();
+        String pizzaMeret;
+        
+        if(rdbMeret25.isSelected()){
+            pizzaMeret = rdbMeret25.getText();
+        }else {
+            pizzaMeret = rdbMeret32.getText();
+        }
+        
+        int ikonTipus = JOptionPane.INFORMATION_MESSAGE;
+        String uzenet = "A választott pizza: " + pizzaFajta + " (" + pizzaMenny + " db)\n mérete: " + pizzaMeret + "\n feltételek: ";
+        String feltetek = null;
+        
+        if (chbSajt.isSelected()&& !chbHagyma.isSelected() && !chbAnanasz.isSelected()){
+            feltetek = "\n- sajt";
+        } else if (!chbSajt.isSelected() && chbHagyma.isSelected() && !chbAnanasz.isSelected()){
+            feltetek = "\n- hagyma";
+        } else if (!chbSajt.isSelected() && !chbHagyma.isSelected() && chbAnanasz.isSelected()){
+            feltetek = "\n- ananász";
+        } else if(chbSajt.isSelected() && chbHagyma.isSelected() && !chbAnanasz.isSelected()){
+            feltetek = "\n- sajt \n- hagyma";
+        } else if(chbSajt.isSelected() && !chbHagyma.isSelected() && chbAnanasz.isSelected()){
+            feltetek = "\n- sajt \n- ananász";
+        } else if (!chbSajt.isSelected() && chbHagyma.isSelected() && chbAnanasz.isSelected()){
+            feltetek = "\n- hagyma \n- ananász";
+        } else if(chbSajt.isSelected() && chbHagyma.isSelected() && chbAnanasz.isSelected()){
+            feltetek = "\n- sajt \n- hagyma \n- ananász";
+        }
+        
+        txaOsszesito.setText(uzenet + feltetek);
+    }//GEN-LAST:event_btnRendelActionPerformed
+
     private void szamolasEsKiiras() {
         vegsoAr = alapAr * meretSzorzo + extrak;
         vegsoAr *= db;
@@ -405,4 +449,8 @@ public class PizzApp extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdbMeret32;
     private javax.swing.JTextArea txaOsszesito;
     // End of variables declaration//GEN-END:variables
+
+    private void and(boolean selected) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
